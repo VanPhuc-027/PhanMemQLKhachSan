@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Media.Animation;
+using MaterialDesignThemes.Wpf;
 namespace QlKhachSan
 {
     /// <summary>
@@ -45,6 +46,26 @@ namespace QlKhachSan
             isPanelOpen = !isPanelOpen;
         }
 
+        // Xử lý các nút trong bảng quản lý
+        private void OpenInventory_Click(object sender, RoutedEventArgs e)
+        {
+            QLHangHoa inventoryWindow = new QLHangHoa();
+            inventoryWindow.Show();
+        }
+
+        private void OpenEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            QLNhanVien employeeWindow = new QLNhanVien();
+            employeeWindow.Show();
+        }
+
+        private void OpenRoom_Click(object sender, RoutedEventArgs e)
+        {
+            QLPhong roomWindow = new QLPhong();
+            roomWindow.Show();
+
+        }
+
         // Xử lý các nút trong bảng tài khoản
         private void ViewAccount_Click(object sender, RoutedEventArgs e)
         {
@@ -53,12 +74,18 @@ namespace QlKhachSan
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Đổi mật khẩu");
+            int userId = 1; // Thay bằng ID thực tế của người dùng đang đăng nhập
+            ChangePassword changePasswordWindow = new ChangePassword(userId);
+            changePasswordWindow.ShowDialog();
         }
+
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Đăng xuất");
+            MessageBox.Show("Đăng xuất thành công");
+            DangNhap dangNhapWindow = new DangNhap();
+            dangNhapWindow.Show();
+            this.Close();
         }
     }
 }

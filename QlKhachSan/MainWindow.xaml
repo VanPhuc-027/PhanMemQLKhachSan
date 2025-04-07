@@ -22,17 +22,17 @@
                     </MenuItem.Header>
                 </MenuItem>
 
-                <MenuItem Background="#FF5681B4">
-                    <MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="Images/Icons/roomks.png" Width="16" Height="16" Margin="0,0,5,0"/>
-                            <TextBlock Text="Hạng phòng/Phòng"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                </MenuItem>
+				<MenuItem Background="#FF5681B4" Click="OpenRoom_Click">
+					<MenuItem.Header>
+						<StackPanel Orientation="Horizontal">
+							<Image Source="Images/Icons/roomks.png" Width="16" Height="16" Margin="0,0,5,0"/>
+							<TextBlock Text="Hạng phòng/Phòng"/>
+						</StackPanel>
+					</MenuItem.Header>
+				</MenuItem>
 
-                <MenuItem Background="#FF5681B4">
-                    <MenuItem.Header>
+				<MenuItem Background="#FF5681B4" Click="OpenInventory_Click">
+					<MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Images/Icons/boxes.png" Width="16" Height="16" Margin="0,0,5,0"/>
                             <TextBlock Text="Hàng hóa"/>
@@ -40,7 +40,7 @@
                     </MenuItem.Header>
                 </MenuItem>
 
-                <MenuItem Background="#FF5681B4">
+                <MenuItem Background="#FF5681B4" Click="OpenEmployee_Click">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Images/Icons/teamwork.png" Width="16" Height="16" Margin="0,0,5,0"/>
@@ -107,13 +107,7 @@
                     </StackPanel>
                     <TextBlock FontSize="12" Foreground="Gray"><Run Text="Không có dữ liệu"/></TextBlock>
                 </StackPanel>
-            </Border>
-
-  
-            
-
-           
-
+            </Border>                   
         </StackPanel>
 
     </Grid>

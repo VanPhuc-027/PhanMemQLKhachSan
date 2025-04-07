@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using QlKhachSan.Models;
 
 namespace QlKhachSan
 {
     /// <summary>
     /// Interaction logic for QLPhong.xaml
     /// </summary>
-    public partial class QLPhong : UserControl
+    public partial class QLPhong : Window
     {
         public QLPhong()
         {
