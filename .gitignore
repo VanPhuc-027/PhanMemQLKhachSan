@@ -1,0 +1,23 @@
+# Ignore Visual Studio temp files and build outputs
+
+# Build results
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+
+# Visual Studio settings
+.vs/
+*.user
+*.suo
+
+# SQLite files (tạm)
+*.sqlite
+
+# Other temp files
+*.tmp
+*.log
+*.db
+
+# Compiled DLLs
+*.dll
