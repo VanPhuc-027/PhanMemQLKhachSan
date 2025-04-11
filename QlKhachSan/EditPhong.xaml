@@ -1,0 +1,23 @@
+﻿<Window x:Class="QlKhachSan.EditPhong"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Chỉnh sửa phòng" Height="300" Width="400">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Số phòng:" Grid.Row="0"/>
+        <TextBox x:Name="txtRoomNumber" Grid.Row="0" Margin="100,0,0,5"/>
+
+        <TextBlock Text="Loại phòng:" Grid.Row="1"/>
+        <ComboBox x:Name="cmbRoomType" Grid.Row="1" Margin="100,0,0,5"/>
+
+        <Button Content="Lưu" Grid.Row="4" HorizontalAlignment="Right" Width="80" Margin="0,10,0,0"
+                Click="btnSave_Click"/>
+    </Grid>
+</Window>

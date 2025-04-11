@@ -1,51 +1,116 @@
-﻿<UserControl x:Class="QlKhachSan.QLPhong"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Height="Auto" Width="Auto">
+﻿<Window x:Class="QlKhachSan.QLPhong"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Quản Lý Phòng"
+        Height="Auto" Width="Auto"
+        WindowState="Maximized">
 
     <Grid Background="#F4F4F4" Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Hàng tiêu đề -->
             <RowDefinition Height="*"/>
-            <!-- Hàng chứa DataGrid -->
         </Grid.RowDefinitions>
 
-        <!-- Thanh tiêu đề + nút Thêm -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <!-- Cột chứa nút -->
-                <ColumnDefinition Width="*"/>
-                <!-- Cột chứa tiêu đề -->
-            </Grid.ColumnDefinitions>
+        <!-- Phần tiêu đề và nút -->
+        <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,10">
+            <!-- Tiêu đề bên trái -->
+            <TextBlock Text="Quản Lý Phòng" FontSize="28" FontWeight="Bold"
+                       Foreground="White" Margin="10,5"
+                       VerticalAlignment="Center"
+                       DockPanel.Dock="Left">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="3" BlurRadius="5"/>
+                </TextBlock.Effect>
+                <TextBlock.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#FF6A00" Offset="0"/>
+                        <GradientStop Color="#FFD500" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBlock.Background>
+                <TextBlock.Padding>10,5</TextBlock.Padding>
+            </TextBlock>
 
-            <!-- Nút Thêm Phòng ở góc trái -->
-            <Button Content="➕ Thêm Phòng" Width="150" Height="40"
-                    Background="#0078D7" Foreground="White"
-                    FontSize="16" FontWeight="Bold"
-                    Margin="10" HorizontalAlignment="Left"
-                    Cursor="Hand"/>
+            <!-- StackPanel chứa các nút bên phải -->
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+                <Button x:Name="btn_Add" Content="➕ Thêm Phòng" Width="150" Height="40"
+                        Background="#0078D7" Foreground="White" FontSize="16" FontWeight="Bold"
+                        Margin="5,0" Cursor="Hand" Click="btn_AddRoom"/>
 
-            <!-- Tiêu đề ở giữa -->
-            <TextBlock Text="Quản Lý Phòng" FontSize="24" FontWeight="Bold" 
-                       Foreground="#333" HorizontalAlignment="Center"
-                       VerticalAlignment="Center" Grid.Column="1"/>
-        </Grid>
+                <Button x:Name="btn_ManageRoomType" Content="🏷️ Quản lý hạng phòng" Width="180" Height="40"
+                        Background="#28A745" Foreground="White" FontSize="16" FontWeight="Bold"
+                        Margin="5,0" Cursor="Hand" Click="btn_ManageRoomType_Click"/>
 
-        <!-- DataGrid danh sách phòng -->
-        <DataGrid Name="dgDanhSachPhong" AutoGenerateColumns="False" 
-                  CanUserAddRows="False" IsReadOnly="True"
-                  Background="White" Foreground="Black" BorderBrush="Gray"
-                  RowHeight="40" HeadersVisibility="Column"
-                  Margin="10" Padding="5"
-                  Grid.Row="1">
+                <Button x:Name="btn_BackToMain" Content="🔙 Quay lại trang chính" Width="200" Height="40"
+                        Background="#DC3545" Foreground="White" FontSize="16" FontWeight="Bold"
+                        Margin="5,0" Cursor="Hand" Click="btn_BackToMain_Click"/>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Bảng danh sách phòng -->
+        <DataGrid Name="dgDanhSachPhong" AutoGenerateColumns="False"
+          CanUserAddRows="False" IsReadOnly="True"
+          Background="White" Foreground="Black" BorderBrush="Gray"
+          RowHeight="40" HeadersVisibility="Column"
+          Margin="10" Padding="5"
+          Grid.Row="1"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Width="800">
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Số Phòng" Binding="{Binding SoPhong}" Width="100"/>
-                <DataGridTextColumn Header="Loại Phòng" Binding="{Binding LoaiPhong}" Width="200"/>
-                <DataGridTextColumn Header="Giá (VNĐ)" Binding="{Binding Gia}" Width="150"/>
-                <DataGridTextColumn Header="Khu Vực" Binding="{Binding KhuVuc}" Width="150"/>
+                <DataGridTextColumn Header="Số Phòng" Binding="{Binding RoomNumber}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Loại Phòng" Binding="{Binding TypeName}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Giá theo giờ" Binding="{Binding PriceHour}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Giá theo ngày" Binding="{Binding PriceDay}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                
+                <DataGridTemplateColumn Header="Tác vụ" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="✏️" Click="btn_EditRoom" Margin="0,0,5,0" Width="30"/>
+                                <Button Content="🗑️" Click="btn_DeleteRoom" Width="30"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
             </DataGrid.Columns>
         </DataGrid>
+
     </Grid>
-</UserControl>
+</Window>

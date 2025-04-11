@@ -1,0 +1,68 @@
+﻿<Window x:Class="QlKhachSan.DatPhongChiTiet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      
+        
+        Title="Thông tin đặt phòng" Height="700" Width="400">
+    <Grid Margin="10">
+        <StackPanel Orientation="Vertical" Margin="10">
+            <TextBlock Text="Số phòng:" FontWeight="Bold"/>
+            <TextBox x:Name="txtRoomNumber" IsReadOnly="True"/>
+
+            <TextBlock Text="Loại phòng:" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox x:Name="txtRoomType" IsReadOnly="True"/>
+
+            <TextBlock Text="Giá theo ngày:" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox x:Name="txtPriceDay" IsReadOnly="True"/>
+
+            <TextBlock Text="Giá theo giờ:" FontWeight="Bold" Margin="0,10,0,0"/>
+            
+            
+            <TextBox x:Name="txtPriceHour" IsReadOnly="True"/>
+
+            <Separator Margin="0,20,0,10"/>
+
+            <TextBlock Text="Thời gian nhận phòng (Check-in):" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <DatePicker x:Name="dpCheckInDate" Width="150"
+                            SelectedDateChanged="dpCheckInDate_SelectedDateChanged"/>
+                <ComboBox x:Name="cbCheckInHour" Width="50" Margin="10,0,0,0"
+                          SelectionChanged="cbCheckInHour_SelectionChanged"/>
+                <TextBlock Text=":" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cbCheckInMinute" Width="50"
+                          SelectionChanged="cbCheckInMinute_SelectionChanged"/>
+            </StackPanel>
+
+            <TextBlock Text="Thời gian trả phòng (Check-out):" FontWeight="Bold" Margin="0,10,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <DatePicker x:Name="dpCheckOutDate" Width="150"
+                            SelectedDateChanged="dpCheckOutDate_SelectedDateChanged"/>
+                <ComboBox x:Name="cbCheckOutHour" Width="50" Margin="10,0,0,0"
+                          SelectionChanged="cbCheckInHour_SelectionChanged"/>
+                <TextBlock Text=":" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cbCheckOutMinute" Width="50"
+                          SelectionChanged="cbCheckOutMinute_SelectionChanged"/>
+            </StackPanel>
+
+
+            <TextBlock Text="Họ và tên:" FontWeight="Bold"/>
+            <TextBox x:Name="txtCustomerName"/>
+
+            <TextBlock Text="CCCD:" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox x:Name="txtCCCD"/>
+
+            <TextBlock Text="Số điện thoại:" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox x:Name="txtPhone"/>
+
+            <TextBlock Text="Email:" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox x:Name="txtEmail"/>
+
+            <TextBlock Text="Tổng tiền:" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox x:Name="txtTotalPrice" IsReadOnly="True" FontWeight="Bold" Foreground="DarkGreen"/>
+            
+
+
+            <Button Content="Xác nhận đặt phòng" Margin="0,20,0,0" Click="btnDatPhong_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

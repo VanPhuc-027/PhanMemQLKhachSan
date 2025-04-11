@@ -1,0 +1,43 @@
+﻿<Window x:Class="QlKhachSan.QLHangPhong"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Quản lý Hạng Phòng" Height="450" Width="800">
+    <Grid Margin="10" Background="#F8F8F8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Tiêu đề và nút Thêm -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <TextBlock Text="Danh sách Hạng Phòng" FontSize="20" FontWeight="Bold"
+                       VerticalAlignment="Center" Margin="0,0,20,10"/>
+            <Button Content="➕ Thêm hạng phòng" Click="BtnThem_Click"
+                    Background="#0078D7" Foreground="White" FontWeight="Bold"
+                    Padding="10,5" Margin="10,0,0,10"/>
+        </StackPanel>
+
+        <!-- Bảng danh sách -->
+        <DataGrid x:Name="dgHangPhong" Grid.Row="1" AutoGenerateColumns="False"
+                  IsReadOnly="True" Margin="0,10,0,0" HeadersVisibility="Column"
+                  CanUserAddRows="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Mã loại" Binding="{Binding RoomTypeId}" Width="100"/>
+                <DataGridTextColumn Header="Tên loại phòng" Binding="{Binding TypeName}" Width="200"/>
+                <DataGridTextColumn Header="Mô tả" Binding="{Binding Description}" Width="200"/>
+                <DataGridTextColumn Header="Giá / ngày (VNĐ)" Binding="{Binding PriceDay}" Width="130"/>
+                <DataGridTextColumn Header="Giá / giờ (VNĐ)" Binding="{Binding PriceHour}" Width="130"/>
+                <DataGridTemplateColumn Header="Tác vụ" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="✏️" Click="BtnSua_Click" Margin="0,0,5,0" Width="30"/>
+                                <Button Content="🗑️" Click="BtnXoa_Click" Width="30"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

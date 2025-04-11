@@ -7,13 +7,31 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="AddHangPhong.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AddPhong.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Booking.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="DangNhap.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="DatPhongChiTiet.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EditPhong.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="QLDatPhong.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="QLHangHoa.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="QLHangPhong.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="QLNhanVien.xaml.cs">
@@ -27,7 +45,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="AddHangPhong.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AddPhong.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Booking.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="DangNhap.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="DatPhongChiTiet.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EditPhong.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
@@ -37,6 +70,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="QLHangHoa.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="QLHangPhong.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="QLNhanVien.xaml">
