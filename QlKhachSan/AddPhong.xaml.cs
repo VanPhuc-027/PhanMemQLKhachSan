@@ -68,7 +68,6 @@ namespace QlKhachSan
             using (var db = new QlksContext())
             {
                 db.Rooms.Add(Newroom);
-                MessageBox.Show(Newroom.Status);
                 db.SaveChanges();
             }
 

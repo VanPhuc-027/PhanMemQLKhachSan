@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QlKhachSan.Models;
 
@@ -11,6 +12,7 @@ public partial class Employee
 
     public string FullName { get; set; } = null!;
 
+    [Column(TypeName = "nvarchar(50)")]
     public string Position { get; set; } = null!;
 
     public string? Phone { get; set; }

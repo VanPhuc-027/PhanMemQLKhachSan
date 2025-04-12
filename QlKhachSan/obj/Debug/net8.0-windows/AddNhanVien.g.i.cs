@@ -108,7 +108,7 @@ namespace QlKhachSan {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/QlKhachSan;component/addnhanvien.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/QlKhachSan;V1.0.0.0;component/addnhanvien.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\AddNhanVien.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

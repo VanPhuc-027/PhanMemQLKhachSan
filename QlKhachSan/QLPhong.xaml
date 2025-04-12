@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Quản Lý Phòng"
         Height="Auto" Width="Auto"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        Background="#FFC8DDD4">
 
-    <Grid Background="#F4F4F4" Margin="10">
+    <Grid Background="#FFC8DDD4" Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -14,7 +15,7 @@
         <!-- Phần tiêu đề và nút -->
         <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,10">
             <!-- Tiêu đề bên trái -->
-            <TextBlock Text="Quản Lý Phòng" FontSize="28" FontWeight="Bold"
+            <TextBlock Text="Quản Lý Phòng" FontSize="30" FontWeight="Bold"
                        Foreground="White" Margin="10,5"
                        VerticalAlignment="Center"
                        DockPanel.Dock="Left">
@@ -23,8 +24,8 @@
                 </TextBlock.Effect>
                 <TextBlock.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#FF6A00" Offset="0"/>
-                        <GradientStop Color="#FFD500" Offset="1"/>
+                        <GradientStop Color="#F27C50" Offset="0"/>
+                        <GradientStop Color="#F9D776" Offset="1"/>
                     </LinearGradientBrush>
                 </TextBlock.Background>
                 <TextBlock.Padding>10,5</TextBlock.Padding>
@@ -34,28 +35,43 @@
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
                 <Button x:Name="btn_Add" Content="➕ Thêm Phòng" Width="150" Height="40"
                         Background="#0078D7" Foreground="White" FontSize="16" FontWeight="Bold"
-                        Margin="5,0" Cursor="Hand" Click="btn_AddRoom"/>
+                        Margin="5,0" Cursor="Hand" Click="btn_AddRoom">
+                    <Button.Effect>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="2" BlurRadius="5"/>
+                    </Button.Effect>
+                </Button>
 
                 <Button x:Name="btn_ManageRoomType" Content="🏷️ Quản lý hạng phòng" Width="180" Height="40"
                         Background="#28A745" Foreground="White" FontSize="16" FontWeight="Bold"
-                        Margin="5,0" Cursor="Hand" Click="btn_ManageRoomType_Click"/>
+                        Margin="5,0" Cursor="Hand" Click="btn_ManageRoomType_Click">
+                    <Button.Effect>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="2" BlurRadius="5"/>
+                    </Button.Effect>
+                </Button>
 
                 <Button x:Name="btn_BackToMain" Content="🔙 Quay lại trang chính" Width="200" Height="40"
                         Background="#DC3545" Foreground="White" FontSize="16" FontWeight="Bold"
-                        Margin="5,0" Cursor="Hand" Click="btn_BackToMain_Click"/>
+                        Margin="5,0" Cursor="Hand" Click="btn_BackToMain_Click">
+                    <Button.Effect>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="2" BlurRadius="5"/>
+                    </Button.Effect>
+                </Button>
             </StackPanel>
         </DockPanel>
 
         <!-- Bảng danh sách phòng -->
         <DataGrid Name="dgDanhSachPhong" AutoGenerateColumns="False"
-          CanUserAddRows="False" IsReadOnly="True"
-          Background="White" Foreground="Black" BorderBrush="Gray"
-          RowHeight="40" HeadersVisibility="Column"
-          Margin="10" Padding="5"
-          Grid.Row="1"
-          HorizontalAlignment="Center"
-          VerticalAlignment="Center"
-          Width="800">
+                  CanUserAddRows="False" IsReadOnly="True"
+                  Background="White" Foreground="Black" BorderBrush="Gray"
+                  RowHeight="40" HeadersVisibility="Column"
+                  Margin="10" Padding="5"
+                  Grid.Row="1"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Width="800"
+                  AlternatingRowBackground="#F9F9F9"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Số Phòng" Binding="{Binding RoomNumber}" Width="*">
@@ -64,6 +80,7 @@
                             <Setter Property="HorizontalAlignment" Value="Center"/>
                             <Setter Property="VerticalAlignment" Value="Center"/>
                             <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -74,6 +91,7 @@
                             <Setter Property="HorizontalAlignment" Value="Center"/>
                             <Setter Property="VerticalAlignment" Value="Center"/>
                             <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -97,13 +115,23 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                
+
                 <DataGridTemplateColumn Header="Tác vụ" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="✏️" Click="btn_EditRoom" Margin="0,0,5,0" Width="30"/>
-                                <Button Content="🗑️" Click="btn_DeleteRoom" Width="30"/>
+                                <Button Content="✏️" Click="btn_EditRoom" Margin="0,0,5,0" Width="30"
+                                        Background="#FFC107" Foreground="White" BorderBrush="Transparent">
+                                    <Button.Effect>
+                                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="2" BlurRadius="5"/>
+                                    </Button.Effect>
+                                </Button>
+                                <Button Content="🗑️" Click="btn_DeleteRoom" Width="30" 
+                                        Background="#DC3545" Foreground="White" BorderBrush="Transparent">
+                                    <Button.Effect>
+                                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="2" BlurRadius="5"/>
+                                    </Button.Effect>
+                                </Button>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

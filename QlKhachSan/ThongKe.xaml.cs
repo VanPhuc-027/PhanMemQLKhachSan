@@ -1,124 +1,121 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using LiveCharts;
+﻿using LiveCharts;
 using LiveCharts.Wpf;
+using QlKhachSan.Models;
+using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.Globalization;
+using System.Linq;
+using System.Windows;
+
 namespace QlKhachSan
 {
-    /// <summary>
-    /// Interaction logic for ThongKe.xaml
-    /// </summary>
     public partial class ThongKe : Window
     {
-        public SeriesCollection DichVuData { get; set; }
-        public List<string> DichVuLabels { get; set; }
+        private readonly QlksContext _context = new QlksContext();
 
-        public SeriesCollection DoanhThuData { get; set; }
-        public List<string> DoanhThuLabels { get; set; }
-
-        public Func<double, string> Formatter { get; set; }
-        public Func<double, string> FormatterDichVu { get; set; }
+        public List<string> Labels { get; set; } = new();
+        public SeriesCollection SeriesCollection { get; set; } = new();
 
         public ThongKe()
         {
             InitializeComponent();
-            LoadData(DateTime.MinValue, DateTime.MaxValue);
-            Formatter = value => value.ToString("N0") + " đ"; // Định dạng số tiền
-            FormatterDichVu = value => value.ToString("N0") + " lượt";
-            DataContext = this;
-        }
-        private void LoadData(DateTime startDate, DateTime endDate)
-        {
-            var dichVuStats = GetDichVuData(startDate, endDate);
-            var doanhThuStats = GetDoanhThuData(startDate, endDate);
+            InitMonthYearComboBox();
+            LoadRevenueByMonth((int)cbNam.SelectedItem, (int)cbThang.SelectedItem);
 
-            // Biểu đồ số lượng dịch vụ
-            DichVuData = new SeriesCollection
-    {
-        new ColumnSeries
-        {
-            Title = "Số lượng dịch vụ",
-            Values = new ChartValues<int>(dichVuStats.Values),
-            Fill = new SolidColorBrush(Colors.Blue),
-            Stroke = new SolidColorBrush(Colors.DarkBlue),
-            StrokeThickness = 2,
-            DataLabels = true,
-            FontSize = 14, // Tăng kích thước chữ
-            MaxColumnWidth = 50 // Điều chỉnh độ rộng cột
-        }
-    };
-            DichVuLabels = new List<string>(dichVuStats.Keys);
-
-            // Biểu đồ doanh thu
-            DoanhThuData = new SeriesCollection
-    {
-        new ColumnSeries
-    {
-        Title = "Doanh thu (VNĐ)",
-        Values = new ChartValues<double>(doanhThuStats.Values.Select(v => (double)v)),
-        Fill = new SolidColorBrush(Colors.OrangeRed),
-        Stroke = new SolidColorBrush(Colors.DarkRed),
-        StrokeThickness = 2,
-        DataLabels = true,
-        FontSize = 14,
-        MaxColumnWidth = 50,
-        LabelPoint = point => string.Format("{0:N0} đ", point.Y) // Định dạng số tiền
-    }
-    };
-            DoanhThuLabels = new List<string>(doanhThuStats.Keys);
-
-            DataContext = this;
         }
 
-
-
-        private void BtnFilter_Click(object sender, RoutedEventArgs e)
+        private void LoadRevenueByMonth(int year, int month)
         {
-            DateTime startDate = dpStartDate.SelectedDate ?? DateTime.MinValue;
-            DateTime endDate = dpEndDate.SelectedDate ?? DateTime.MaxValue;
-            LoadData(startDate, endDate);
-        }
 
-        // Giả lập lấy dữ liệu dịch vụ từ cơ sở dữ liệu
-        private Dictionary<string, int> GetDichVuData(DateTime startDate, DateTime endDate)
-        {
-            Dictionary<string, int> data = new Dictionary<string, int>
+
+            var payments = _context.Payments
+                .Where(p => p.PaymentDate.HasValue &&
+                            p.PaymentDate.Value.Year == year &&
+                            p.PaymentDate.Value.Month == month)
+                .ToList();
+
+            var grouped = payments
+                .GroupBy(p => p.PaymentDate!.Value.Day)
+                .Select(g => new
+                {
+                    Day = g.Key,
+                    Total = g.Sum(p => p.TotalAmount)
+                })
+                .OrderBy(g => g.Day)
+                .ToList();
+
+            if (grouped.Count == 0)
             {
-                { "Massage", 120 },
-                { "Giặt ủi", 80 },
-                { "Thuê xe", 50 },
-                { "Ăn uống", 150 }
-            };
+                RevenueChart.Series = new SeriesCollection(); // clear chart
+                RevenueChart.AxisX[0].Labels = new List<string>();
+                tbThongBao.Visibility = Visibility.Visible;
+                return;
+            }
 
-            // Có thể thay thế bằng truy vấn SQL để lấy dữ liệu thực tế từ CSDL theo ngày tháng
-            return data;
+            Labels = grouped.Select(g => $"Ngày {g.Day}").ToList();
+            var values = grouped.Select(g => (double)g.Total).ToList();
+
+            var culture = CultureInfo.GetCultureInfo("vi-VN");
+
+            SeriesCollection = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = $"Tháng {month}/{year}",
+                    Values = new ChartValues<double>(values),
+                    DataLabels = true,
+                    LabelPoint = point =>
+                    {
+                        int index = (int)point.X;
+                        string dayLabel = Labels[index];
+                        double amount = point.Y;
+
+                        string formattedAmount = string.Format(culture, "{0:#,0} VNĐ", amount);
+                        return $"{dayLabel}\n{formattedAmount}";
+                    }
+                }
+            };
+            tbThongBao.Visibility = Visibility.Collapsed;
+            RevenueChart.Series = SeriesCollection;
+            RevenueChart.AxisX[0].Labels = Labels;
+
         }
 
-        // Giả lập lấy dữ liệu doanh thu từ cơ sở dữ liệu
-        private Dictionary<string, int> GetDoanhThuData(DateTime startDate, DateTime endDate)
+        private void cbThang_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            Dictionary<string, int> data = new Dictionary<string, int>
-            {
-                { "Tháng 1", 50000 },
-                { "Tháng 2", 70000 },
-                { "Tháng 3", 65000 },
-                { "Tháng 4", 80000 }
-            };
+            LoadFromComboBoxes();
+        }
 
-            // Có thể thay thế bằng truy vấn SQL để lấy dữ liệu thực tế từ CSDL theo ngày tháng
-            return data;
+        private void cbNam_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            LoadFromComboBoxes();
+        }
+
+        private void LoadFromComboBoxes()
+        {
+            if (cbThang.SelectedItem != null && cbNam.SelectedItem != null)
+            {
+                int year = (int)cbNam.SelectedItem;
+                int month = (int)cbThang.SelectedItem;
+                LoadRevenueByMonth(year, month);
+            }
+        }
+
+
+        private void InitMonthYearComboBox()
+        {
+            cbThang.ItemsSource = Enumerable.Range(1, 12);
+            cbThang.SelectedIndex = DateTime.Now.Month - 1;
+
+            int currentYear = DateTime.Now.Year;
+            cbNam.ItemsSource = Enumerable.Range(2020, 6 + (currentYear - 2020));
+            cbNam.SelectedItem = currentYear;
+        }
+        private void btn_BackToMain_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
+            this.Close(); // Đóng cửa sổ quản lý phòng
         }
     }
 }

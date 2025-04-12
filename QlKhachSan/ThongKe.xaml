@@ -2,54 +2,75 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Title="Thống kê" Height="500" Width="800">
-    <Grid>
+        Title="Thống kê doanh thu theo tháng" Height="450" Width="800"
+        WindowState="Maximized">
+
+    <Grid Margin="10">
+        <!-- Định nghĩa 3 hàng: tiêu đề, thanh công cụ, biểu đồ -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Tiêu đề -->
+            <RowDefinition Height="Auto"/>
+            <!-- Thanh công cụ -->
             <RowDefinition Height="*"/>
+            <!-- Biểu đồ -->
         </Grid.RowDefinitions>
 
-        <!-- Thanh chọn ngày tháng -->
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <Label Content="Từ ngày:" VerticalAlignment="Center"/>
-            <DatePicker Name="dpStartDate" Width="120" Margin="5"/>
+        <!-- Tiêu đề -->
+        <Border Background="#FFC8DDD4" Grid.Row="0" Padding="10" Margin="0,0,0,10" CornerRadius="10">
+            <TextBlock Text="📊 Thống kê doanh thu theo tháng" 
+                       FontSize="28" FontWeight="Bold" Foreground="Black"
+                       HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="2" BlurRadius="4"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Border>
 
-            <Label Content="Đến ngày:" VerticalAlignment="Center"/>
-            <DatePicker Name="dpEndDate" Width="120" Margin="5"/>
-
-            <Button Content="Lọc" Click="BtnFilter_Click" Width="80"/>
-        </StackPanel>
-
-        <Grid Grid.Row="1">
+        <!-- Thanh công cụ: ComboBox ở giữa, nút quay lại bên phải -->
+        <Grid Grid.Row="1" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Biểu đồ số lượng dịch vụ -->
-            <lvc:CartesianChart Grid.Column="0">
-                <lvc:CartesianChart.Series>
-                    <lvc:ColumnSeries Title="Sử dụng dịch vụ" Values="{Binding DichVuData}" />
-                </lvc:CartesianChart.Series>
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Số lượng " 
-                  LabelFormatter="{Binding FormatterDichVu}" />
-                </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart>
+            <!-- StackPanel chứa ComboBox ở giữa -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <ComboBox x:Name="cbThang" Width="120" Margin="5" SelectionChanged="cbThang_SelectionChanged"/>
+                <ComboBox x:Name="cbNam" Width="120" Margin="5" SelectionChanged="cbNam_SelectionChanged"/>
+            </StackPanel>
 
-            <!-- Biểu đồ doanh thu -->
-            <lvc:CartesianChart Grid.Column="1">
-                <lvc:CartesianChart.Series>
-                    <lvc:ColumnSeries Title="Doanh thu" Values="{Binding DoanhThuData}" />
-                </lvc:CartesianChart.Series>
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Tháng" Labels="{Binding DoanhThuLabels}" />
-                </lvc:CartesianChart.AxisX>
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Doanh thu (VNĐ)"
-                           LabelFormatter="{Binding Formatter}"   />
-                </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart>
+            <!-- Nút quay lại nằm bên phải -->
+            <Button x:Name="btn_BackToMain" Content="🔙 Quay lại trang chính" Width="200" Height="40"
+                    Background="#DC3545" Foreground="White" FontSize="16" FontWeight="Bold"
+                    Margin="10,0,0,0" Cursor="Hand" Click="btn_BackToMain_Click"
+                    Grid.Column="1" HorizontalAlignment="Right">
+                <Button.Effect>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="2" BlurRadius="5"/>
+                </Button.Effect>
+            </Button>
         </Grid>
+
+        <!-- Thông báo không có dữ liệu -->
+        <TextBlock x:Name="tbThongBao"
+                   Text="Không có dữ liệu doanh thu trong tháng này."
+                   Foreground="Gray"
+                   FontStyle="Italic"
+                   FontSize="16"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Margin="0,0,0,10"
+                   Visibility="Collapsed"
+                   Grid.Row="2"/>
+
+        <!-- Biểu đồ doanh thu -->
+        <lvc:CartesianChart Name="RevenueChart" Grid.Row="2" Margin="10">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Ngày" Labels="{Binding Labels}"/>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Doanh thu (VNĐ)"/>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
     </Grid>
 </Window>

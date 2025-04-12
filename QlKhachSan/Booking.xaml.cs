@@ -20,7 +20,15 @@ namespace QlKhachSan
         {
             using (var db = new QlksContext())
             {
-                var rooms = db.Rooms.Include(r => r.RoomType).ToList();
+                var roomsQuery = db.Rooms.Include(r => r.RoomType).AsQueryable();
+
+                // Lọc theo số phòng nếu có từ khóa tìm kiếm
+                if (!string.IsNullOrWhiteSpace(searchText))
+                {
+                    roomsQuery = roomsQuery.Where(r => r.RoomNumber.Contains(searchText));
+                }
+
+                var rooms = roomsQuery.ToList();
                 wpRooms.Children.Clear();
 
                 foreach (var room in rooms)
@@ -32,7 +40,7 @@ namespace QlKhachSan
                         CornerRadius = new CornerRadius(8),
                         Padding = new Thickness(5),
                         Margin = new Thickness(5),
-                        Width = 120,
+                        Width = 180,
                         Background = room.Status == "Trống" ? Brushes.LightGreen :
                                      room.Status == "Đã đặt" ? Brushes.LightYellow :
                                      Brushes.LightGray,
@@ -41,19 +49,27 @@ namespace QlKhachSan
 
                     var panel = new StackPanel();
 
-                    // Thông tin phòng
-                    var txtInfo = new TextBlock
+                    var txtRoomNumber = new TextBlock
                     {
-                        Text = $"{room.RoomNumber}\n{room.RoomType.TypeName}",
+                        Text = $"Số phòng: {room.RoomNumber}",
                         TextAlignment = TextAlignment.Center,
                         FontWeight = FontWeights.Bold,
+                        FontSize = 14
+                    };
+
+                    var txtRoomType = new TextBlock
+                    {
+                        Text = $"Loại phòng: {room.RoomType.TypeName}",
+                        TextAlignment = TextAlignment.Center,
+                        FontSize = 12,
                         Margin = new Thickness(0, 0, 0, 5)
                     };
-                    panel.Children.Add(txtInfo);
+
+                    panel.Children.Add(txtRoomNumber);
+                    panel.Children.Add(txtRoomType);
 
                     if (room.Status == "Đã đặt")
                     {
-                        // Nút Điều chỉnh
                         var btnEdit = new Button
                         {
                             Content = "Điều chỉnh",
@@ -76,7 +92,7 @@ namespace QlKhachSan
 
                                 if (latestBooking != null)
                                 {
-                                    var editWindow = new EditBookingWindow(latestBooking); // Giả sử đây là form chỉnh sửa
+                                    var editWindow = new EditBookingWindow(latestBooking);
                                     bool? result = editWindow.ShowDialog();
                                     if (result == true)
                                     {
@@ -91,7 +107,6 @@ namespace QlKhachSan
                         };
                         panel.Children.Add(btnEdit);
 
-                        // Nút Trả phòng
                         var btnCheckout = new Button
                         {
                             Content = "Trả phòng",
@@ -125,13 +140,11 @@ namespace QlKhachSan
                                     MessageBox.Show("Không tìm thấy đơn đặt phòng để thanh toán!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                                 }
                             }
-
                         };
                         panel.Children.Add(btnCheckout);
                     }
                     else if (room.Status == "Trống")
                     {
-                        // Gắn sự kiện click để mở form đặt phòng khi phòng trống
                         border.MouseLeftButtonUp += (s, e) =>
                         {
                             var datPhongWindow = new DatPhongChiTiet(room);
