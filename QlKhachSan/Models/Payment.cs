@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QlKhachSan.Models;
 
@@ -13,6 +14,7 @@ public partial class Payment
 
     public decimal TotalAmount { get; set; }
 
+    [Column(TypeName = "nvarchar(50)")]
     public string? PaymentMethod { get; set; }
 
     public string? Details { get; set; }

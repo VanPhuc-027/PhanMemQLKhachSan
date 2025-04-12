@@ -62,10 +62,32 @@ namespace QlKhachSan
                         };
                         btnEdit.Click += (s, e) =>
                         {
-                            var datPhongWindow = new DatPhongChiTiet(room);
-                            bool? result = datPhongWindow.ShowDialog();
-                            if (result == true)
-                                LoadRooms();
+                            using (var db = new QlksContext())
+                            {
+                                var latestBooking = db.Bookings
+                                    .Include(b => b.Customer)
+                                    .Include(b => b.Room)
+                                        .ThenInclude(r => r.RoomType)
+                                    .Include(b => b.BookingServices)
+                                        .ThenInclude(bs => bs.Service)
+                                    .Where(b => b.RoomId == room.RoomId && b.Status != "Đã trả")
+                                    .OrderByDescending(b => b.BookingDate)
+                                    .FirstOrDefault();
+
+                                if (latestBooking != null)
+                                {
+                                    var editWindow = new EditBookingWindow(latestBooking); // Giả sử đây là form chỉnh sửa
+                                    bool? result = editWindow.ShowDialog();
+                                    if (result == true)
+                                    {
+                                        LoadRooms();
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Không tìm thấy booking để chỉnh sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                }
+                            }
                         };
                         panel.Children.Add(btnEdit);
 
@@ -77,15 +99,33 @@ namespace QlKhachSan
                         };
                         btnCheckout.Click += (s, e) =>
                         {
-                            using var dbContext = new QlksContext();
-                            var dbRoom = dbContext.Rooms.FirstOrDefault(r => r.RoomId == room.RoomId);
-                            if (dbRoom != null)
+                            using (var db = new QlksContext())
                             {
-                                dbRoom.Status = "Trống";
-                                dbContext.SaveChanges();
-                                MessageBox.Show("Trả phòng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                                LoadRooms();
+                                var latestBooking = db.Bookings
+                                    .Include(b => b.Customer)
+                                    .Include(b => b.Room)
+                                        .ThenInclude(r => r.RoomType)
+                                    .Include(b => b.BookingServices)
+                                        .ThenInclude(bs => bs.Service)
+                                    .Where(b => b.RoomId == room.RoomId && b.Status != "Đã trả")
+                                    .OrderByDescending(b => b.BookingDate)
+                                    .FirstOrDefault();
+
+                                if (latestBooking != null)
+                                {
+                                    var thanhToan = new ThanhToanWindow(latestBooking);
+                                    bool? result = thanhToan.ShowDialog();
+                                    if (result == true)
+                                    {
+                                        LoadRooms();
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Không tìm thấy đơn đặt phòng để thanh toán!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                }
                             }
+
                         };
                         panel.Children.Add(btnCheckout);
                     }
@@ -122,7 +162,6 @@ namespace QlKhachSan
                 {
                     LoadRooms();
                 }
-
             }
             else
             {
@@ -138,6 +177,12 @@ namespace QlKhachSan
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             LoadRooms(txtSearch.Text);
+        }
+        private void btn_BackToMain_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
+            this.Close(); // Đóng cửa sổ quản lý phòng
         }
 
     }

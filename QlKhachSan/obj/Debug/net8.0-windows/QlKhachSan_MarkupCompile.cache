@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\App.xaml
-21780690707
+231558024455
 21064406073
-32-976094793
+3483603046
 2381719561164
-AddHangHoa.xaml;AddHangPhong.xaml;AddNhanVien.xaml;AddPhong.xaml;Booking.xaml;ChangePassword.xaml;DangNhap.xaml;DatPhongChiTiet.xaml;EditHangHoa.xaml;EditNhanVien.xaml;EditPhong.xaml;MainWindow.xaml;QLDatPhong.xaml;QLHangHoa.xaml;QLHangPhong.xaml;QLNhanVien.xaml;QLPhong.xaml;Themes\Primary\MaterialDesignColor.Blue.xaml;Themes\Primary\MaterialDesignColor.Red.xaml;Themes\Primary\MaterialDesignTheme.Light.xaml;ThongKe.xaml;
+AddHangHoa.xaml;AddHangPhong.xaml;AddNhanVien.xaml;AddPhong.xaml;Booking.xaml;ChangePassword.xaml;DangNhap.xaml;DatPhongChiTiet.xaml;EditBookingWindow.xaml;EditHangHoa.xaml;EditNhanVien.xaml;EditPhong.xaml;MainWindow.xaml;QLDatPhong.xaml;QLHangHoa.xaml;QLHangPhong.xaml;QLNhanVien.xaml;QLPhong.xaml;ThanhToanWindow.xaml;Themes\Primary\MaterialDesignColor.Blue.xaml;Themes\Primary\MaterialDesignColor.Red.xaml;Themes\Primary\MaterialDesignTheme.Light.xaml;ThongKe.xaml;
 
 False
 

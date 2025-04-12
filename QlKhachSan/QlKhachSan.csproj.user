@@ -22,6 +22,9 @@
     <Compile Update="DatPhongChiTiet.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="EditBookingWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="EditPhong.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -38,6 +41,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="QLPhong.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ThanhToanWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="ThongKe.xaml.cs">
@@ -60,6 +66,9 @@
     <Page Update="DatPhongChiTiet.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="EditBookingWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="EditPhong.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -79,6 +88,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="QLPhong.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ThanhToanWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\Primary\MaterialDesignColor.Blue.xaml">

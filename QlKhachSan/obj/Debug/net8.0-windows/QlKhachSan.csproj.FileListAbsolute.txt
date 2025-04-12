@@ -331,6 +331,7 @@ C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\Booki
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\ChangePassword.baml
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\DangNhap.baml
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\DatPhongChiTiet.baml
+C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\EditBookingWindow.baml
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\EditHangHoa.baml
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\EditNhanVien.baml
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\EditPhong.baml
@@ -353,6 +354,7 @@ C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\Booki
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\ChangePassword.g.cs
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\DangNhap.g.cs
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\DatPhongChiTiet.g.cs
+C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\EditBookingWindow.g.cs
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\EditHangHoa.g.cs
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\EditNhanVien.g.cs
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\EditPhong.g.cs
@@ -362,10 +364,13 @@ C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\QLHan
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\QLHangPhong.g.cs
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\QLNhanVien.g.cs
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\QLPhong.g.cs
+C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\ThanhToanWindow.g.cs
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\ThongKe.g.cs
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\App.g.cs
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\QlKhachSan_Content.g.cs
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\QlKhachSan_MarkupCompile.cache
+C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\QlKhachSan_MarkupCompile.lref
+C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\ThanhToanWindow.baml
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\QlKhachSan.g.resources
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\QlKhachSan.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Admin\source\repos\QlKhachSan\QlKhachSan\obj\Debug\net8.0-windows\QlKhachSan.AssemblyInfoInputs.cache

@@ -10,6 +10,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Media.Animation;
 using MaterialDesignThemes.Wpf;
+using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 namespace QlKhachSan
 {
     /// <summary>
@@ -91,10 +93,12 @@ namespace QlKhachSan
         {
             BookingWindow bookingWindow = new BookingWindow();
             bookingWindow.Show();
+            this.Close();
 
         }
 
         //Đổ dữ liệu
 
     }
+
 }

@@ -23,6 +23,43 @@ namespace QlKhachSan
     public partial class DatPhongChiTiet : Window
     {
         private Room room;
+
+        private List<Service> allServices = new List<Service>();
+
+        private void LoadServices()
+        {
+            using var db = new QlksContext();
+            allServices = db.Services.ToList();
+
+            lbServices.Items.Clear();
+            foreach (var service in allServices)
+            {
+                var checkbox = new CheckBox
+                {
+                    Content = $"{service.ServiceName} - {service.ServicePrice:C0}",
+                    Tag = service
+                };
+                checkbox.Checked += (s, e) => CapNhatTongTien();
+                checkbox.Unchecked += (s, e) => CapNhatTongTien();
+                lbServices.Items.Add(checkbox);
+            }
+
+        }
+
+        private decimal GetSelectedServiceTotal()
+        {
+            decimal total = 0;
+            foreach (CheckBox item in lbServices.Items)
+            {
+                if (item.IsChecked == true && item.Tag is Service service)
+                {
+                    total += service.ServicePrice;
+                }
+            }
+            return total;
+        }
+
+
         public DatPhongChiTiet()
         {
             InitializeComponent();
@@ -38,6 +75,7 @@ namespace QlKhachSan
         public DatPhongChiTiet(Room room)
         {
             InitializeComponent();
+            LoadServices();
             this.room = room;
             txtRoomNumber.Text = room.RoomNumber;
 
@@ -80,9 +118,6 @@ namespace QlKhachSan
             cbCheckOutHour.SelectedItem = now.Hour.ToString("D2");
             cbCheckOutMinute.SelectedItem = (now.Minute - now.Minute % 5 + 30).ToString("D2");
         }
-
-
-
 
         private void btnDatPhong_Click(object sender, RoutedEventArgs e)
         {
@@ -162,6 +197,7 @@ namespace QlKhachSan
 
 
             txtTotalPrice.Text = totalPrice.ToString("N0") + " VNĐ";
+            totalPrice += GetSelectedServiceTotal();
 
 
             var existingCustomer = db.Customers.FirstOrDefault(c => c.IdNumber == idNumber);
@@ -187,6 +223,24 @@ namespace QlKhachSan
                 Status = "Đã đặt"
             };
             db.Bookings.Add(booking);
+
+            // Sau khi booking được thêm, cần lưu lại để có BookingId
+            db.SaveChanges();
+
+            // Thêm các dịch vụ đã chọn vào bảng BookingServices
+            foreach (CheckBox item in lbServices.Items)
+            {
+                if (item.IsChecked == true && item.Tag is Service selectedService)
+                {
+                    var bookingService = new BookingService
+                    {
+                        BookingId = booking.BookingId,
+                        ServiceId = selectedService.ServiceId
+                    };
+                    db.BookingServices.Add(bookingService);
+                }
+            }
+
 
             room.Status = "Đã đặt";
             db.SaveChanges();
@@ -238,13 +292,16 @@ namespace QlKhachSan
                         totalPrice = (decimal)totalDays * room.RoomType.PriceDay;
                     }
                 }
-
+                decimal serviceTotal = GetSelectedServiceTotal();
+                totalPrice += serviceTotal;
                 txtTotalPrice.Text = totalPrice.ToString("N0") + " VNĐ";
+                
             }
             catch
             {
                 txtTotalPrice.Text = "0 VND";
             }
+
         }
 
 
@@ -272,10 +329,5 @@ namespace QlKhachSan
         {
             CapNhatTongTien();
         }
-
-
-
-
-
     }
 }
