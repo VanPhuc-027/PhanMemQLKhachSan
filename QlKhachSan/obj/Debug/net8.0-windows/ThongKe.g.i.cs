@@ -93,7 +93,7 @@ namespace QlKhachSan {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/QlKhachSan;V1.0.0.0;component/thongke.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/QlKhachSan;component/thongke.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\ThongKe.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

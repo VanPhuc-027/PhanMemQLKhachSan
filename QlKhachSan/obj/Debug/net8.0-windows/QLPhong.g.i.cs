@@ -84,7 +84,7 @@ namespace QlKhachSan {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/QlKhachSan;V1.0.0.0;component/qlphong.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/QlKhachSan;component/qlphong.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\QLPhong.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

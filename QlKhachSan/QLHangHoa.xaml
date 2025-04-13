@@ -1,7 +1,7 @@
 ﻿<Window x:Class="QlKhachSan.QLHangHoa"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Quản lý hàng hóa" Height="400" Width="600"
+        Title="Quản lý dịch vụ" Height="400" Width="600"
         WindowState="Maximized">
 	<Grid>
 		<Grid.RowDefinitions>
